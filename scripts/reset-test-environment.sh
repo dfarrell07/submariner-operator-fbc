@@ -36,17 +36,12 @@ rm -rf \
 #    and revert any changes to catalog-template.yaml. This does not affect
 #    any other work-in-progress files in the repository.
 echo "  - Restoring tracked files modified by tests (from ${RESTORE_FROM})..."
-# We explicitly list the directories because a glob (catalog-*/) would fail if
-# the directories don't exist on the filesystem after the rm.
+# Dynamically discover catalog directories from git instead of hardcoding,
+# so new OCP versions are automatically included in test cleanup.
+CATALOG_DIRS=$(git ls-tree --name-only "$RESTORE_FROM" | grep '^catalog-' || true)
+# shellcheck disable=SC2086
 git restore --source="$RESTORE_FROM" catalog-template.yaml \
     .tekton/images-mirror-set.yaml \
-    catalog-4-14 \
-    catalog-4-15 \
-    catalog-4-16 \
-    catalog-4-17 \
-    catalog-4-18 \
-    catalog-4-19 \
-    catalog-4-20 \
-    catalog-4-21
+    $CATALOG_DIRS
 
 echo "  - Reset complete."
