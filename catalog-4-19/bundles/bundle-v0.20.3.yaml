@@ -1,6 +1,6 @@
 ---
-image: registry.redhat.io/rhacm2/submariner-operator-bundle@sha256:ee20c79d6c6c8c1b11ef8fa0245acbe1425c4292693ddbe4abcdc1a1eddc9a0b
-name: submariner.v0.24.0
+image: registry.redhat.io/rhacm2/submariner-operator-bundle@sha256:dddc574f9c2ed8e7266522761842ea2c88e9cad3e284cf9c3522fd5e834d82ef
+name: submariner.v0.20.3
 package: submariner
 properties:
   - type: olm.gvk
@@ -21,7 +21,7 @@ properties:
   - type: olm.package
     value:
       packageName: submariner
-      version: 0.24.0
+      version: 0.20.3
   - type: olm.csv.metadata
     value:
       annotations:
@@ -58,7 +58,7 @@ properties:
                 "globalnetEnabled": false,
                 "namespace": "submariner-operator",
                 "repository": "quay.io/submariner",
-                "version": "0.24.0"
+                "version": "0.20.3"
               }
             },
             {
@@ -92,15 +92,15 @@ properties:
                 "repository": "quay.io/submariner",
                 "serviceCIDR": "192.168.66.0/24",
                 "serviceDiscoveryEnabled": true,
-                "version": "0.24.0"
+                "version": "0.20.3"
               }
             }
           ]
         capabilities: Basic Install
         categories: Networking
         certified: "false"
-        containerImage: registry.redhat.io/rhacm2/submariner-rhel9-operator@sha256:746fe224f8d4e6ba26ae3c73c5f37066613d76686c318aaaf1126488c7710350
-        createdAt: "2026-05-12 11:46:21"
+        containerImage: registry.redhat.io/rhacm2/submariner-rhel9-operator@sha256:48d246bc258a533d5e2637655c9f7f6dfb140752824e60bc47f7263f713b51e4
+        createdAt: "2026-07-02 09:44:50"
         description: Creates and manages Submariner deployments.
         features.operators.openshift.io/disconnected: "true"
         features.operators.openshift.io/fips-compliant: "true"
@@ -111,7 +111,7 @@ properties:
         features.operators.openshift.io/token-auth-gcp: "false"
         operatorframework.io/suggested-namespace: submariner-operator
         operators.openshift.io/valid-subscription: '["OpenShift Platform Plus", "Red Hat Advanced Cluster Management for Kubernetes"]'
-        operators.operatorframework.io/builder: operator-sdk-v1.41.1
+        operators.operatorframework.io/builder: operator-sdk-v1.39.0
         operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
         repository: https://github.com/submariner-io/submariner-operator
         support: Submariner
@@ -260,12 +260,6 @@ properties:
                 x-descriptors:
                   - urn:alm:descriptor:com.tectonic.ui:booleanSwitch
                   - urn:alm:descriptor:com.tectonic.ui:advanced
-              - description: Use certificates for authentication when OVN IPsec is enabled.
-                displayName: IPsec Use OVN Certificate Authentication Mode
-                path: ceIPSecUseOVNCertAuthMode
-                x-descriptors:
-                  - urn:alm:descriptor:com.tectonic.ui:booleanSwitch
-                  - urn:alm:descriptor:com.tectonic.ui:advanced
               - description: The cluster CIDR.
                 displayName: Cluster CIDR
                 path: clusterCIDR
@@ -337,12 +331,6 @@ properties:
                 x-descriptors:
                   - urn:alm:descriptor:com.tectonic.ui:booleanSwitch
                   - urn:alm:descriptor:com.tectonic.ui:advanced
-              - description: Disable intra-cluster connectivity routing.
-                displayName: Disable Intra-cluster connectivity
-                path: disableIntraClusterConnectivity
-                x-descriptors:
-                  - urn:alm:descriptor:com.tectonic.ui:booleanSwitch
-                  - urn:alm:descriptor:com.tectonic.ui:advanced
               - description: The Global CIDR super-net range for allocating GlobalCIDRs to each cluster.
                 displayName: Global CIDR
                 path: globalCIDR
@@ -365,11 +353,6 @@ properties:
                 path: loadBalancerEnabled
                 x-descriptors:
                   - urn:alm:descriptor:com.tectonic.ui:booleanSwitch
-              - description: Annotations to add to LoadBalancer services, allowing custom configuration for any cloud.
-                displayName: Annotations for Load Balancer Service
-                path: loadBalancerServiceAnnotations
-                x-descriptors:
-                  - urn:alm:descriptor:com.tectonic.ui:advanced
               - description: The namespace in which to deploy the submariner operator.
                 displayName: Namespace
                 path: namespace
@@ -510,7 +493,7 @@ properties:
         2. Apply the broker RBAC definitions:
 
             ```shell
-            git clone --depth 1 --single-branch --branch release-0.24 https://github.com/submariner-io/submariner-operator
+            git clone --depth 1 --single-branch --branch release-0.20 https://github.com/submariner-io/submariner-operator
             kubectl apply -k submariner-operator/config/broker -n submariner-k8s-broker
             ```
 
@@ -614,20 +597,20 @@ properties:
       provider:
         name: submariner.io
 relatedImages:
-  - image: registry.redhat.io/rhacm2/lighthouse-agent-rhel9@sha256:cc935254131e7ef440b411ea6c6660356308bd961b19f4010c9cc8bb310f830c
+  - image: registry.redhat.io/rhacm2/submariner-operator-bundle@sha256:dddc574f9c2ed8e7266522761842ea2c88e9cad3e284cf9c3522fd5e834d82ef
+    name: ""
+  - image: registry.redhat.io/rhacm2/lighthouse-agent-rhel9@sha256:06246189f2c4aad0bb2dbadf64903bbbb727e5bd45308b654aea9db60e53cd80
     name: submariner-lighthouse-agent
-  - image: registry.redhat.io/rhacm2/lighthouse-coredns-rhel9@sha256:9db81558008c12388ff1332e18d74fd9ea38dbea2636a8ce1b56970a846c7344
+  - image: registry.redhat.io/rhacm2/lighthouse-coredns-rhel9@sha256:c8538712781a26d8faa81ce223f9fa9344eb17b64ed63dcd2d565d336cec0939
     name: submariner-lighthouse-coredns
-  - image: registry.redhat.io/rhacm2/nettest-rhel9@sha256:170a9fc26d62faf1c02be2e83bf496e85b06be86b615bb9e2592d9e67951a7ec
-    name: ""
-  - image: registry.redhat.io/rhacm2/submariner-gateway-rhel9@sha256:555600cd3ad21067a9af4c39efd643ed399e1afc7bf3ccb5ea09caa46270d59b
+  - image: registry.redhat.io/rhacm2/nettest-rhel9@sha256:9c9e0ec55c7a02fcad965795652e3077ab219aa7153e681e726d6c4b870ef866
+    name: submariner-nettest
+  - image: registry.redhat.io/rhacm2/submariner-gateway-rhel9@sha256:d968ae5d719c9c17d842bba5b2ab0e233369acda02bf88a5e02a02607ac8810d
     name: submariner-gateway
-  - image: registry.redhat.io/rhacm2/submariner-globalnet-rhel9@sha256:144911a1a3aee93e56284d21e6665d3f403f1fe018b5bfa215ade7ea4c2a2de2
+  - image: registry.redhat.io/rhacm2/submariner-globalnet-rhel9@sha256:0ffe05f3f98e991ea847b5e5def2130c75b387988a1fb45116b67c00a09c3f63
     name: submariner-globalnet
-  - image: registry.redhat.io/rhacm2/submariner-operator-bundle@sha256:ee20c79d6c6c8c1b11ef8fa0245acbe1425c4292693ddbe4abcdc1a1eddc9a0b
-    name: ""
-  - image: registry.redhat.io/rhacm2/submariner-rhel9-operator@sha256:746fe224f8d4e6ba26ae3c73c5f37066613d76686c318aaaf1126488c7710350
+  - image: registry.redhat.io/rhacm2/submariner-rhel9-operator@sha256:48d246bc258a533d5e2637655c9f7f6dfb140752824e60bc47f7263f713b51e4
     name: submariner-operator
-  - image: registry.redhat.io/rhacm2/submariner-route-agent-rhel9@sha256:26dcbee8a483ca73524cc7c43ec531ce0e001e07d0035f77e9355a51a81cf475
+  - image: registry.redhat.io/rhacm2/submariner-route-agent-rhel9@sha256:a236e5bf851222387e1be10b39be575aede12724f6268d5439e124dd5387be2d
     name: submariner-routeagent
 schema: olm.bundle
