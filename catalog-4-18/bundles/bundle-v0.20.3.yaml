@@ -597,8 +597,6 @@ properties:
       provider:
         name: submariner.io
 relatedImages:
-  - image: registry.redhat.io/rhacm2/submariner-operator-bundle@sha256:dddc574f9c2ed8e7266522761842ea2c88e9cad3e284cf9c3522fd5e834d82ef
-    name: ""
   - image: registry.redhat.io/rhacm2/lighthouse-agent-rhel9@sha256:06246189f2c4aad0bb2dbadf64903bbbb727e5bd45308b654aea9db60e53cd80
     name: submariner-lighthouse-agent
   - image: registry.redhat.io/rhacm2/lighthouse-coredns-rhel9@sha256:c8538712781a26d8faa81ce223f9fa9344eb17b64ed63dcd2d565d336cec0939
@@ -609,6 +607,8 @@ relatedImages:
     name: submariner-gateway
   - image: registry.redhat.io/rhacm2/submariner-globalnet-rhel9@sha256:0ffe05f3f98e991ea847b5e5def2130c75b387988a1fb45116b67c00a09c3f63
     name: submariner-globalnet
+  - image: registry.redhat.io/rhacm2/submariner-operator-bundle@sha256:dddc574f9c2ed8e7266522761842ea2c88e9cad3e284cf9c3522fd5e834d82ef
+    name: ""
   - image: registry.redhat.io/rhacm2/submariner-rhel9-operator@sha256:48d246bc258a533d5e2637655c9f7f6dfb140752824e60bc47f7263f713b51e4
     name: submariner-operator
   - image: registry.redhat.io/rhacm2/submariner-route-agent-rhel9@sha256:a236e5bf851222387e1be10b39be575aede12724f6268d5439e124dd5387be2d
