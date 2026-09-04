@@ -836,16 +836,22 @@ verify_template() {
   fi
   echo "✓ SHA matches snapshot"
 
-  # Verify registry domain matches expected source
+  # Verify registry domain: must match snapshot (quay.io) OR be registry.redhat.io
+  # (convert_released_bundles legitimately converts quay.io → registry.redhat.io)
   expected_registry="${BUNDLE_IMAGE%%@sha256:*}"
   template_registry="${template_image%%@sha256:*}"
-  if [ "$expected_registry" != "$template_registry" ]; then
+  if [ "$expected_registry" != "$template_registry" ] && \
+     [[ "$template_registry" != "registry.redhat.io/rhacm2/submariner-operator-bundle" ]]; then
     echo "✗ Registry domain mismatch!"
-    echo "  Expected: $expected_registry"
+    echo "  Expected: $expected_registry (or registry.redhat.io)"
     echo "  Template: $template_registry"
     return 1
   fi
-  echo "✓ Registry matches snapshot"
+  if [ "$expected_registry" != "$template_registry" ]; then
+    echo "✓ Registry converted to registry.redhat.io (released bundle)"
+  else
+    echo "✓ Registry matches snapshot"
+  fi
 
   # Verify bundle in channel
   if [ -z "$in_channel" ]; then
