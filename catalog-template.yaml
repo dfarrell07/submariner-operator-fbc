@@ -195,6 +195,6 @@ entries:
     image: registry.redhat.io/rhacm2/submariner-operator-bundle@sha256:ee20c79d6c6c8c1b11ef8fa0245acbe1425c4292693ddbe4abcdc1a1eddc9a0b
     schema: olm.bundle
   - name: submariner.v0.24.1
-    image: quay.io/redhat-user-workloads/submariner-tenant/submariner-bundle-0-24@sha256:a8bb318b8afa37daf2ce9394d80c46224e872b593934fbb68fd89e20e6665f84
+    image: registry.redhat.io/rhacm2/submariner-operator-bundle@sha256:a8bb318b8afa37daf2ce9394d80c46224e872b593934fbb68fd89e20e6665f84
     schema: olm.bundle
 schema: olm.template.basic
