@@ -1065,14 +1065,6 @@ main() {
   # Step 2: Detect scenario
   detect_scenario
 
-  # Step 2.5: Audit bundle URLs and convert released bundles
-  audit_bundle_urls
-
-  if ! convert_released_bundles; then
-    echo "✗ ERROR: Bundle conversion failed"
-    exit 1
-  fi
-
   # Step 3: Update catalog-template.yaml based on scenario
   case "$SCENARIO" in
     ADD)
@@ -1098,6 +1090,17 @@ main() {
       exit 1
       ;;
   esac
+
+  # Step 3.5: Audit bundle URLs and convert released bundles to registry.redhat.io.
+  # Runs after the scenario step so that conversions are never clobbered by
+  # update_template_update writing the snapshot's quay.io BUNDLE_IMAGE back over
+  # a URL that convert_released_bundles already converted.
+  audit_bundle_urls
+
+  if ! convert_released_bundles; then
+    echo "✗ ERROR: Bundle conversion failed"
+    exit 1
+  fi
 
   # Step 4: Rebuild catalogs
   if [ "${SKIP_BUILD_CATALOGS:-false}" = "true" ]; then
